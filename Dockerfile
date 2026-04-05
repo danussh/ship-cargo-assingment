@@ -22,6 +22,7 @@ COPY --from=builder --chown=shipiq:shipiq /root/.local /home/shipiq/.local
 
 # Copy application code
 COPY --chown=shipiq:shipiq ./app ./app
+COPY --chown=shipiq:shipiq ./static ./static
 COPY --chown=shipiq:shipiq .env.example .env
 
 # Update PATH

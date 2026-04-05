@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShipIQ - Cargo Optimization Visualizer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚢 ShipIQ Cargo Optimization</h1>
+            <p class="subtitle">Visualize cargo-to-tank allocation in real-time</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2>Input Data</h2>
+                
+                <div class="quick-actions">
+                    <button id="loadSampleBtn" class="btn btn-primary">Load Sample Data</button>
+                    <button id="clearBtn" class="btn btn-secondary">Clear All</button>
+                </div>
+
+                <div class="input-grid">
+                    <div class="input-column">
+                        <h3>Cargos</h3>
+                        <div id="cargoInputs" class="input-list">
+                            <div class="input-row">
+                                <input type="text" placeholder="ID (e.g., C1)" class="cargo-id" value="C1">
+                                <input type="number" placeholder="Volume" class="cargo-volume" value="1234" min="0" step="0.01">
+                                <button class="btn-remove" onclick="removeRow(this)">×</button>
+                            </div>
+                        </div>
+                        <button id="addCargoBtn" class="btn btn-add">+ Add Cargo</button>
+                    </div>
+
+                    <div class="input-column">
+                        <h3>Tanks</h3>
+                        <div id="tankInputs" class="input-list">
+                            <div class="input-row">
+                                <input type="text" placeholder="ID (e.g., T1)" class="tank-id" value="T1">
+                                <input type="number" placeholder="Capacity" class="tank-capacity" value="5000" min="0" step="0.01">
+                                <button class="btn-remove" onclick="removeRow(this)">×</button>
+                            </div>
+                        </div>
+                        <button id="addTankBtn" class="btn btn-add">+ Add Tank</button>
+                    </div>
+                </div>
+
+                <button id="optimizeBtn" class="btn btn-optimize">🚀 Optimize Allocation</button>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <h2>Optimization Results</h2>
+
+                <!-- Metrics Cards -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Total Cargo Volume</div>
+                        <div class="metric-value" id="totalCargoVolume">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Tank Capacity</div>
+                        <div class="metric-value" id="totalTankCapacity">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Loaded</div>
+                        <div class="metric-value" id="totalLoaded">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Tank Utilization</div>
+                        <div class="metric-value" id="tankUtilization">0%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Cargo Loaded</div>
+                        <div class="metric-value" id="cargoLoaded">0%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Tanks Used</div>
+                        <div class="metric-value" id="tanksUsed">0/0</div>
+                    </div>
+                </div>
+
+                <!-- Visualization -->
+                <div class="visualization">
+                    <h3>Tank Allocation Visualization</h3>
+                    <div id="tankVisualization" class="tank-viz-container"></div>
+                </div>
+
+                <!-- Allocations Table -->
+                <div class="allocations-table">
+                    <h3>Detailed Allocations</h3>
+                    <table id="allocationsTable">
+                        <thead>
+                            <tr>
+                                <th>Tank ID</th>
+                                <th>Cargo ID</th>
+                                <th>Volume Allocated</th>
+                                <th>Tank Capacity</th>
+                                <th>Utilization</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allocationsBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Unallocated Cargo -->
+                <div id="unallocatedSection" class="unallocated-section" style="display: none;">
+                    <h3>⚠️ Unallocated Cargo</h3>
+                    <div id="unallocatedList"></div>
+                </div>
+            </section>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>Optimizing allocation...</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+        </div>
+
+        <footer>
+            <p>ShipIQ Cargo Optimization Service | Built with FastAPI & Vanilla JS</p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
